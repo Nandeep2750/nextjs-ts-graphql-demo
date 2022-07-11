@@ -13,6 +13,8 @@ yarn dev
 ## Features Integrated
 - Next JS with TS.
 - Use formik for form and yup for validation.
+- Use ENV variables.
+- Use @apollo/client & ApolloProvider for use GraphQL with Next JS.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
