@@ -15,6 +15,7 @@ yarn dev
 - Use formik for form and yup for validation.
 - Use ENV variables.
 - Use @apollo/client & ApolloProvider for use GraphQL with Next JS.
+- Implement Graphql Code Generator to generate Hooks from graphql queries.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
