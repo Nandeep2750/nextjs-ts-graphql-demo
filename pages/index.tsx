@@ -2,27 +2,51 @@ import type { NextPage } from 'next'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
+import { toast } from "react-toastify";
+import Router from "next/router";
+
+import { useLoginMutation } from '../graphql/generated';
+import { CONSTANTS } from '../config/constants';
+
+const { LOGIN_DATA } = CONSTANTS
 
 const Home: NextPage = () => {
+  
+  const [loginMutation, { data, loading, error }] = useLoginMutation();
 
   const LoginValidationSchema = Yup.object().shape({
-    email: Yup.string().required().email(),
-    password: Yup.string().required(),
+    username: Yup.string().required(),
+    password: Yup.string().required()
   });
+
+  // const onFill = (formikProps) => {
+  //     useFormik.setFieldValue('username', LOGIN_DATA.email, false)
+  //     formikProps.setFieldValue('password', LOGIN_DATA.password, false)
+  // }
 
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
     validationSchema: LoginValidationSchema,
     onSubmit: (values, actions) => {
-      console.log("🚀 ~ file: index.tsx ~ line 20 ~ values", values)
       actions.setSubmitting(true)
-      setTimeout(() => {
-        actions.setSubmitting(false)
-        actions.resetForm()
-      }, 1000);
+      loginMutation({
+        variables:{
+          ...values
+        },
+        onCompleted(data){
+          Router.push("/dashboard");
+          actions.setSubmitting(false)
+          actions.resetForm()
+        },
+        onError(error){
+          actions.setSubmitting(false)
+          actions.resetForm()
+          toast.error(error.message);
+        }
+      })
     }
   });
 
@@ -32,20 +56,20 @@ const Home: NextPage = () => {
         <div className="card-body">
           <h5 className="card-title text-center">Login</h5>
           <form onSubmit={formik.handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email address</label>
+          <div className="mb-3">
+              <label htmlFor="username" className="form-label">User Name</label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                className={`form-control ${formik.touched.email && formik.errors.email ? "is-invalid" : ""}`}
-                value={formik.values.email}
+                type="text"
+                id="username"
+                name="username"
+                className={`form-control ${formik.touched.username && formik.errors.username ? "is-invalid" : ""}`}
+                value={formik.values.username}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 disabled={formik.isSubmitting}
               />
-              {formik.errors.email && formik.touched.email && (
-                <span className="text-danger">{formik.errors.email}</span>
+              {formik.errors.username && formik.touched.username && (
+                <span className="text-danger">{formik.errors.username}</span>
               )}
             </div>
             <div className="mb-3">
