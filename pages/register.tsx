@@ -3,19 +3,23 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 
-const Home: NextPage = () => {
+const Register: NextPage = () => {
 
-  const LoginValidationSchema = Yup.object().shape({
+  const RegistrationValidationSchema = Yup.object().shape({
+    username: Yup.string().required(),
     email: Yup.string().required().email(),
     password: Yup.string().required(),
+    confirmPassword : Yup.string().required().oneOf([Yup.ref('password'), null], 'Passwords must match.')
   });
 
   const formik = useFormik({
     initialValues: {
+      username: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
-    validationSchema: LoginValidationSchema,
+    validationSchema: RegistrationValidationSchema,
     onSubmit: (values, actions) => {
       console.log("🚀 ~ file: index.tsx ~ line 20 ~ values", values)
       actions.setSubmitting(true)
@@ -30,10 +34,26 @@ const Home: NextPage = () => {
     <div className="vh-100 d-flex align-items-center justify-content-center">
       <div className="card shadow-lg" style={{ width: '24rem' }}>
         <div className="card-body">
-          <h5 className="card-title text-center">Login</h5>
+          <h5 className="card-title text-center">Sign Up</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email address</label>
+              <label htmlFor="username" className="form-label">User Name</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                className={`form-control ${formik.touched.username && formik.errors.username ? "is-invalid" : ""}`}
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                disabled={formik.isSubmitting}
+              />
+              {formik.errors.username && formik.touched.username && (
+                <span className="text-danger">{formik.errors.username}</span>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">Email Address</label>
               <input
                 type="email"
                 id="email"
@@ -64,13 +84,29 @@ const Home: NextPage = () => {
                 <span className="text-danger">{formik.errors.password}</span>
               )}
             </div>
+            <div className="mb-3">
+              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                className={`form-control ${formik.touched.confirmPassword && formik.errors.confirmPassword ? "is-invalid" : ""}`}
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                disabled={formik.isSubmitting}
+              />
+              {formik.errors.confirmPassword && formik.touched.confirmPassword && (
+                <span className="text-danger">{formik.errors.confirmPassword}</span>
+              )}
+            </div>
             <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
-              Login
+              Sign Up
               {formik.isSubmitting && <div className="spinner-border text-light spinner-border-sm ms-2" role="status"></div>}
             </button>
             <div className='mt-2'>
-              <span>Don&apos;t have account?</span>{" "}
-              <Link href={"/register"}>Sign Up</Link>
+              <span>Already have an account?</span>{" "}
+              <Link href={"/"}>Login</Link>
             </div>
           </form>
         </div>
@@ -79,4 +115,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Register
