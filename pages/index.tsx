@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
 
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="vh-100 d-flex align-items-center justify-content-center">
-      <div className="card" style={{ width: '24rem' }}>
+      <div className="card shadow-lg" style={{ width: '24rem' }}>
         <div className="card-body">
           <h5 className="card-title text-center">Login</h5>
           <form onSubmit={formik.handleSubmit}>
@@ -37,7 +38,7 @@ const Home: NextPage = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="form-control"
+                className={`form-control ${formik.touched.email && formik.errors.email ? "is-invalid" : ""}`}
                 value={formik.values.email}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -53,7 +54,7 @@ const Home: NextPage = () => {
                 type="password"
                 id="password"
                 name="password"
-                className="form-control"
+                className={`form-control ${formik.touched.password && formik.errors.password ? "is-invalid" : ""}`}
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -67,6 +68,10 @@ const Home: NextPage = () => {
               Login
               {formik.isSubmitting && <div className="spinner-border text-light spinner-border-sm ms-2" role="status"></div>}
             </button>
+            <div className='mt-2'>
+              <span>Don&apos;t have account?</span>{" "}
+              <Link href={"/register"}>Sign Up</Link>
+            </div>
           </form>
         </div>
       </div>
