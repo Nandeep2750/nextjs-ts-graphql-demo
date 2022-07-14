@@ -28,7 +28,7 @@ const InputField: React.FunctionComponent<IInputFieldProps> = (props) => {
                 id={id}
                 name={name}
                 className={`form-control ${touched[name] && errors[name] ? "is-invalid" : ""}`}
-                value={value || values.username}
+                value={value || values[name]}
                 onChange={onChange || handleChange}
                 onBlur={onBlur || handleBlur}
                 disabled={disabled || isSubmitting}
