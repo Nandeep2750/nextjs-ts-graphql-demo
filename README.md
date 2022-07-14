@@ -16,9 +16,11 @@ yarn dev
 - Use ENV variables.
 - Use @apollo/client & ApolloProvider for use GraphQL with Next JS.
 - Implement Graphql Code Generator to generate Hooks from graphql queries.
+- Implement Toastify for Toast message.
+- Use Generated Hooks for Graphql API calls.
+- Create reusable component and use interface and types to manage props generics
 
 ## ToDo
-- Use Generated Hooks for Graphql API calls.
 - Multilanguage Implementation.
 - Authentication for routes.
 - Redux Implementation.
