@@ -7,12 +7,13 @@ import Router from "next/router";
 
 import { useLoginMutation } from '../graphql/generated';
 import { CONSTANTS } from '../config/constants';
+import InputField from '../components/form/InputField';
 
 const { LOGIN_DATA } = CONSTANTS
 
 const Home: NextPage = () => {
-  
-  const [loginMutation, { data, loading, error }] = useLoginMutation();
+
+  const [loginMutation, { data: loginMutationData, loading: loginMutationLoading, error: loginMutationError }] = useLoginMutation();
 
   const LoginValidationSchema = Yup.object().shape({
     username: Yup.string().required(),
@@ -33,15 +34,15 @@ const Home: NextPage = () => {
     onSubmit: (values, actions) => {
       actions.setSubmitting(true)
       loginMutation({
-        variables:{
+        variables: {
           ...values
         },
-        onCompleted(data){
+        onCompleted(data) {
           Router.push("/dashboard");
           actions.setSubmitting(false)
           actions.resetForm()
         },
-        onError(error){
+        onError(error) {
           actions.setSubmitting(false)
           actions.resetForm()
           toast.error(error.message);
@@ -56,37 +57,27 @@ const Home: NextPage = () => {
         <div className="card-body">
           <h5 className="card-title text-center">Login</h5>
           <form onSubmit={formik.handleSubmit}>
-          <div className="mb-3">
-              <label htmlFor="username" className="form-label">User Name</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                className={`form-control ${formik.touched.username && formik.errors.username ? "is-invalid" : ""}`}
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                disabled={formik.isSubmitting}
+            <div className="mb-3">
+              <InputField
+                title='User Name'
+                type='text'
+                id='username'
+                name='username'
+                // value={formik.values.username}
+                // onChange={formik.handleChange}
+                // onBlur={formik.handleBlur}
+                // disabled={formik.isSubmitting}
+                formik={formik}
               />
-              {formik.errors.username && formik.touched.username && (
-                <span className="text-danger">{formik.errors.username}</span>
-              )}
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className={`form-control ${formik.touched.password && formik.errors.password ? "is-invalid" : ""}`}
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                disabled={formik.isSubmitting}
+              <InputField
+                title='Password'
+                type='password'
+                id='password'
+                name='password'
+                formik={formik}
               />
-              {formik.errors.password && formik.touched.password && (
-                <span className="text-danger">{formik.errors.password}</span>
-              )}
             </div>
             <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
               Login
