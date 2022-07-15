@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import 'bootstrap/dist/css/bootstrap.css'
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/styles/globals.css'
+import '../assets/styles/style.css'
 
 /* Import components */
 import NextApolloProvider from '../graphql/NextApolloProvider'
