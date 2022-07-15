@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
+import InputField from '../components/form/InputField';
 
 const Register: NextPage = () => {
 
@@ -37,68 +38,40 @@ const Register: NextPage = () => {
           <h5 className="card-title text-center">Sign Up</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="username" className="form-label">User Name</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                className={`form-control ${formik.touched.username && formik.errors.username ? "is-invalid" : ""}`}
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                disabled={formik.isSubmitting}
+              <InputField
+                title='User Name'
+                type='text'
+                id='username'
+                name='username'
+                formik={formik}
               />
-              {formik.errors.username && formik.touched.username && (
-                <span className="text-danger">{formik.errors.username}</span>
-              )}
             </div>
             <div className="mb-3">
-              <label htmlFor="email" className="form-label">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className={`form-control ${formik.touched.email && formik.errors.email ? "is-invalid" : ""}`}
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                disabled={formik.isSubmitting}
+              <InputField
+                title='Email'
+                type='email'
+                id='email'
+                name='email'
+                formik={formik}
               />
-              {formik.errors.email && formik.touched.email && (
-                <span className="text-danger">{formik.errors.email}</span>
-              )}
             </div>
             <div className="mb-3">
-              <label htmlFor="password" className="form-label">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className={`form-control ${formik.touched.password && formik.errors.password ? "is-invalid" : ""}`}
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                disabled={formik.isSubmitting}
+              <InputField
+                title='Password'
+                type='password'
+                id='password'
+                name='password'
+                formik={formik}
               />
-              {formik.errors.password && formik.touched.password && (
-                <span className="text-danger">{formik.errors.password}</span>
-              )}
             </div>
             <div className="mb-3">
-              <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                className={`form-control ${formik.touched.confirmPassword && formik.errors.confirmPassword ? "is-invalid" : ""}`}
-                value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                disabled={formik.isSubmitting}
+              <InputField
+                title='Confirm Password'
+                type='password'
+                id='confirmPassword'
+                name='confirmPassword'
+                formik={formik}
               />
-              {formik.errors.confirmPassword && formik.touched.confirmPassword && (
-                <span className="text-danger">{formik.errors.confirmPassword}</span>
-              )}
             </div>
             <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
               Sign Up
