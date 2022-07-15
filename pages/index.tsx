@@ -9,7 +9,7 @@ import { useLoginMutation } from '../graphql/generated';
 import { CONSTANTS } from '../config/constants';
 import InputField from '../components/form/InputField';
 
-const { LOGIN_DATA } = CONSTANTS
+const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Home: NextPage = () => {
 
@@ -19,11 +19,6 @@ const Home: NextPage = () => {
     username: Yup.string().required(),
     password: Yup.string().required()
   });
-
-  // const onFill = (formikProps) => {
-  //     useFormik.setFieldValue('username', LOGIN_DATA.email, false)
-  //     formikProps.setFieldValue('password', LOGIN_DATA.password, false)
-  // }
 
   const formik = useFormik({
     initialValues: {
@@ -38,9 +33,9 @@ const Home: NextPage = () => {
           ...values
         },
         onCompleted(data) {
-          Router.push("/dashboard");
           actions.setSubmitting(false)
           actions.resetForm()
+          Router.push("/dashboard");
         },
         onError(error) {
           actions.setSubmitting(false)
@@ -50,6 +45,11 @@ const Home: NextPage = () => {
       })
     }
   });
+
+  const onFill = () => {
+    formik.setFieldValue('username', LOGIN_DATA.username, false)
+    formik.setFieldValue('password', LOGIN_DATA.password, false)
+  }
 
   return (
     <div className="vh-100 d-flex align-items-center justify-content-center">
@@ -83,6 +83,9 @@ const Home: NextPage = () => {
               Login
               {formik.isSubmitting && <div className="spinner-border text-light spinner-border-sm ms-2" role="status"></div>}
             </button>
+            {process.env.NODE_ENV === DEVELOPMENT_ENV &&
+              <button type="button" className="btn btn-link" onClick={onFill}>Fill form</button>
+            }
             <div className='mt-2'>
               <span>Don&apos;t have account?</span>{" "}
               <Link href={"/register"}>Sign Up</Link>

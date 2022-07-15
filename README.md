@@ -19,13 +19,13 @@ yarn dev
 - Implement Toastify for Toast message.
 - Use Generated Hooks for Graphql API calls.
 - Create reusable component and use interface and types to manage props generics
+- Set Custom 404 page.
 
 ## ToDo
 - Multilanguage Implementation.
 - Authentication for routes.
 - Redux Implementation.
 - Sonarqube Implementation.
-- Set 404 page.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
