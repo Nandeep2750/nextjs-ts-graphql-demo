@@ -1,0 +1,1 @@
+export { default as Spin } from '../assets/svg/Spin.svg';
