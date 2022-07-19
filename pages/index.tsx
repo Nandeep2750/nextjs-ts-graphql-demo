@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { toast } from "react-toastify";
-import Router from "next/router";
+import { signIn } from "next-auth/react"
 
 import { useLoginMutation } from '../graphql/generated';
 import { CONSTANTS } from '../config/constants';
@@ -33,9 +33,14 @@ const Home: NextPage = () => {
           ...values
         },
         onCompleted(data) {
+          signIn("credentials", {
+            // redirect: false, 
+            callbackUrl: '/dashboard', 
+            ...data.login
+          })
           actions.setSubmitting(false)
           actions.resetForm()
-          Router.push("/dashboard");
+          // Router.push("/dashboard");
         },
         onError(error) {
           actions.setSubmitting(false)

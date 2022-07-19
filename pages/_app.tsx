@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app'
 
 /* Import packages */
 import { ToastContainer } from "react-toastify";
+import { SessionProvider } from "next-auth/react"
 
 /* Import css & scss */
 import 'bootstrap/dist/css/bootstrap.css'
@@ -13,11 +14,13 @@ import '../assets/styles/style.css'
 /* Import components */
 import NextApolloProvider from '../graphql/NextApolloProvider'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
   return (
     <NextApolloProvider>
-      <Component {...pageProps} />
-      <ToastContainer autoClose={3000} />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+        <ToastContainer autoClose={3000} />
+      </SessionProvider>
     </NextApolloProvider>
   )
 }

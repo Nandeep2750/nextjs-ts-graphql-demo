@@ -5,3 +5,21 @@ a {
 .btn-link {
     text-decoration: none;
 }
+
+.loader {
+    position: fixed;
+    min-height: 100vh;
+    /* height:100%; */
+    z-index: 9999;
+    background-color: rgba(251, 251, 252, .7);
+    width: 100%;
+    text-align: center;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    top: 0;
+    left: 0
+}
