@@ -20,10 +20,11 @@ yarn dev
 - Use Generated Hooks for Graphql API calls.
 - Create reusable component and use interface and types to manage props generics
 - Set Custom 404 page.
+- Implement next-auth.
+- Authentication for routes.
 
 ## ToDo
 - Multilanguage Implementation.
-- Authentication for routes.
 - Redux Implementation.
 - Sonarqube Implementation.
 

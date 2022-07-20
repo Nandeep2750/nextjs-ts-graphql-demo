@@ -42,4 +42,29 @@ Fetching latest versions of selected plugins...
 ```
 
 - This will generate `codegen.yml` file.
-- Also it will add command in `package.json` file to run command to run generator
+- Also it will add command in `package.json` file to run command to run generator.
+
+------------------------------------
+## How to use generated Hooks 
+
+- In this demo project here is the file path in that generated hooks are available. 
+- `graphql/generated/index.tsx`
+- To use of any Hooks like queries or mutation here is one example...
+
+```
+import { useLoginMutation } from '../graphql/generated';
+
+const [loginMutation, { data: loginMutationData, loading: loginMutationLoading, error: loginMutationError }] = useLoginMutation();
+
+loginMutation({
+  variables: {
+    ...values
+  },
+  onCompleted(data) {
+    // Do some process after Completed.
+  },
+  onError(error) {
+    // Do some process on Error occure.
+  }
+})
+```
