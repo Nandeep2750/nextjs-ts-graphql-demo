@@ -116,8 +116,6 @@ docker logs sonarqube
 ------------------------------------------------
 ## Create project using GITHUB
 
-- Docs for follow the steps : https://docs.sonarqube.org/latest/analysis/github-integration
-
 - You need to use a GitHub App to connect SonarQube and GitHub so you can import your GitHub repositories into SonarQube. This is also the first step in adding authentication, and, starting in `Developer Edition`, the first step in reporting your analysis and Quality Gate status to your pull requests.\
 
 - Steps...
@@ -130,14 +128,30 @@ docker logs sonarqube
     3. Updating your SonarQube global settings with your GitHub App information
         - Navigate to Administration > Configuration > General Settings > DevOps Platform Integrations > GitHub
 
+- Docs for follow the steps : https://docs.sonarqube.org/latest/analysis/github-integration
+
 ------------------------------------------------
 ## Create project using GITLAB
-
-- Docs for follow the steps : https://docs.sonarqube.org/latest/analysis/gitlab-integration
 
 - You can delegate authentication to GitLab using a dedicated GitLab OAuth application.
 
 - Steps...
     1. Creating a GitLab OAuth app
         - https://docs.gitlab.com/ee/integration/oauth_provider.html
+        - After saving your application, you find your Application ID and Secret.
+        - Add Application ID, secret to the `Administration > Configuration > General Settings > DevOps Platform Integrations > GitLab > Authentication`.
+    2. GitLab group synchronization
+        - To synchronize a GitLab group or subgroup with a SonarQube group, name the SonarQube group with the full path of the GitLab group or subgroup URL (Synchronize user groups at `Administration > Configuration > General Settings > DevOps Platform Integrations > GitLab`).
+    3. Importing your GitLab projects into SonarQube
+        - To set up the import of GitLab projects:
+            1. Set your global settings
+            2. Add a personal access token for importing repositories
+    4. Analyzing projects with GitLab CI/CD
+        - To analyze your projects with GitLab CI/CD, you need to:
+            1. Set your environment variables.
+            2. Configure your gilab-ci.yml file.
+
+- Docs for follow the steps : https://docs.sonarqube.org/latest/analysis/gitlab-integration
+
+
 
