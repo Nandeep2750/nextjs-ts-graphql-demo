@@ -153,5 +153,13 @@ docker logs sonarqube
 
 - Docs for follow the steps : https://docs.sonarqube.org/latest/analysis/gitlab-integration
 
+## Run SonarQube Scanner locally
 
-
+- If you want to see sonarqube report locally, follow below steps.
+    1. Insatll [sonarqube-scanner](https://www.npmjs.com/package/sonarqube-scanner)
+    2. Add sonarqube-scanner.js file at the root of project.
+    3. Run below commad to execute analysis locally.
+    ```
+    node sonarqube-scanner
+    ```
+    4. It will create .scannerwork folder with .sonar_lock and report-task.txt (In which you can find report of the analysis) files.

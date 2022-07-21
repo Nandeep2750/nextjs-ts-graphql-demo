@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Loader: React.FunctionComponent = () => {
+const Navbar: React.FunctionComponent = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <a className="navbar-brand" href="#">Navbar</a>
@@ -36,4 +36,4 @@ const Loader: React.FunctionComponent = () => {
     );
 };
 
-export default Loader;
+export default Navbar;
