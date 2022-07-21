@@ -2,7 +2,7 @@ const scanner = require('sonarqube-scanner');
 
 scanner(
     {
-        serverUrl: 'http://localhost:9000/',
+        serverUrl: 'https://16e4-182-70-121-2.in.ngrok.io',
         token: "sqp_2b1ed6a0793eb286aa6e2c2adfd64afc24816df9",
         options: {
             'sonar.projectName': 'test next js',
