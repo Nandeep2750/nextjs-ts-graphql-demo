@@ -1,13 +1,15 @@
 # SONARQUBE
    We will use docker to run [Sonarqube](https://www.sonarqube.org/).
 
+------------------------------------------------
+
 ## Steps for install Docker
 Install docker using following link for your OS.
     -[Install Docker](https://docs.docker.com/compose/install/compose-desktop/)
 
 ------------------------------------------------
-## Implement Sonarqube with Docker
 
+## Implement Sonarqube with Docker
 ### Steps for Windows
 
 Using the cmd terminal,
@@ -25,6 +27,8 @@ docker run --name sonarqube --restart always -p 9000:9000 -d sonarqube
 3. Go to localhost: 9000 and there should be a running instance with admin as default login details
 
 4. To run Sonarqube image use docker container.
+
+------------------------------------------------
 
 ### Steps for Ubuntu
 - Download the SonarQube Docker image from the online repository
@@ -97,7 +101,7 @@ docker container restart sonarqube
 ```
 docker logs sonarqube
 ```
-
+------------------------------------------------
 ### Step for SonarQube dashboard
 
 - Open your browser and enter the IP address of your web server plus :9000
@@ -153,9 +157,11 @@ docker logs sonarqube
 
 - Docs for follow the steps : https://docs.sonarqube.org/latest/analysis/gitlab-integration
 
+------------------------------------------------
+
 ## Run SonarQube Scanner locally
 
-- If you want to see sonarqube report locally, follow below steps.
+- If you want to run sonarqube report locally, follow below steps.
     1. Insatll [sonarqube-scanner](https://www.npmjs.com/package/sonarqube-scanner)
     2. Add sonarqube-scanner.js file at the root of project.
     3. Run below commad to execute analysis locally.
@@ -163,3 +169,4 @@ docker logs sonarqube
     node sonarqube-scanner
     ```
     4. It will create .scannerwork folder with .sonar_lock and report-task.txt (In which you can find report of the analysis) files.
+- If you want to analyse the code at the development time, install [Sonarlint](https://www.sonarlint.org/).

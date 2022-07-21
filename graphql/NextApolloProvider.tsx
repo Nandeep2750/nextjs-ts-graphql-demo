@@ -7,7 +7,7 @@ const NextApolloProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         uri: process.env.NEXT_PUBLIC_APOLLO_CLIENT_URI,
         cache: new InMemoryCache(),
     });
-
+                  
     return (
         <ApolloProvider client={client}>
             {children}

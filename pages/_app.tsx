@@ -13,12 +13,16 @@ import '../assets/styles/style.css'
 
 /* Import components */
 import NextApolloProvider from '../graphql/NextApolloProvider'
+import AuthLayout from '../components/layout/AuthLayout';
 
 function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
+
   return (
     <NextApolloProvider>
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <AuthLayout>
+          <Component {...pageProps} />
+        </AuthLayout>
         <ToastContainer autoClose={3000} />
       </SessionProvider>
     </NextApolloProvider>
