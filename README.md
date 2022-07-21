@@ -22,11 +22,12 @@ yarn dev
 - Set Custom 404 page.
 - Implement next-auth.
 - Authentication for routes.
+- Sonarqube Implementation with Docker.
+- Implement sonarqube-scanner.
 
 ## ToDo
 - Multilanguage Implementation.
 - Redux Implementation.
-- Sonarqube Implementation.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
