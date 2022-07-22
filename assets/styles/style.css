@@ -11,7 +11,7 @@ a {
     min-height: 100vh;
     /* height:100%; */
     z-index: 9999;
-    background-color: rgba(251, 251, 252, .7);
+    background-color: rgba(251, 251, 252, 0.7);
     width: 100%;
     text-align: center;
     display: -webkit-flex;
@@ -21,5 +21,9 @@ a {
     -webkit-justify-content: center;
     justify-content: center;
     top: 0;
-    left: 0
+    left: 0;
+}
+
+.white-space-pre-wrap {
+    white-space: pre-wrap;
 }
