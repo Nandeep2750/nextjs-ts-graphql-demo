@@ -4,9 +4,9 @@ import Router from "next/router";
 import { useEffect } from 'react';
 import Loader from '../components/common/Loader';
 
-const Home: NextPage = () => {
+const Dashboard: NextPage = () => {
 
-    const { data: session, status: sessionStatus } = useSession({
+    const { data: sessionData, status: sessionStatus } = useSession({
         required: true,
         onUnauthenticated() {
             // The user is not authenticated, handle it here.
@@ -14,13 +14,12 @@ const Home: NextPage = () => {
         },
     })
 
-    useEffect(() => {
-        console.log("🚀 ~ file: dashboard.tsx ~ line 19 ~ session", session)
-    }, [session]);
+    if (sessionStatus === "loading") {
+        return <Loader />
+    }
 
     return (
-        <div className="">
-            {sessionStatus === "loading" && <Loader />}
+        <>
             <div className="card m-4">
                 <div className="card-body">
                     <h3 className="card-title">Posts</h3>
@@ -37,8 +36,8 @@ const Home: NextPage = () => {
                     </ul>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export default Home
+export default Dashboard
