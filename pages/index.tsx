@@ -3,15 +3,26 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
 import { toast } from "react-toastify";
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 
 import { useLoginMutation } from '../graphql/generated';
 import { CONSTANTS } from '../config/constants';
 import InputField from '../components/form/InputField';
+import Router from 'next/router';
+import { useEffect } from 'react';
+import Loader from '../components/common/Loader';
 
 const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Home: NextPage = () => {
+
+  const { data: sessionData, status: sessionStatus } = useSession()
+
+  useEffect(() => {
+    if (sessionData && sessionData !== null && sessionData !== undefined) {
+      Router.push("/dashboard");
+    }
+  }, [sessionData]);
 
   const [loginMutation, { data: loginMutationData, loading: loginMutationLoading, error: loginMutationError }] = useLoginMutation();
 
@@ -54,6 +65,10 @@ const Home: NextPage = () => {
   const onFill = () => {
     formik.setFieldValue('username', LOGIN_DATA.username, false)
     formik.setFieldValue('password', LOGIN_DATA.password, false)
+  }
+
+  if (sessionStatus === "loading") {
+    return <Loader />
   }
 
   return (

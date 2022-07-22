@@ -1,23 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useFormik } from 'formik';
-import { useCreatePostMutation, GetPostsDocument } from '../graphql/generated/index';
 import * as Yup from 'yup';
 import { toast } from "react-toastify";
-import { useSession } from 'next-auth/react';
-import Router from "next/router";
 
-import InputField from '../components/form/InputField';
-import Loader from '../components/common/Loader';
+import { useCreatePostMutation, GetPostsDocument } from '../../graphql/generated/index';
+import TextareaField from '../form/TextareaField';
 
 const CreatePost = () => {
-
-  const { data: sessionData, status: sessionStatus } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      Router.push("/");
-    },
-  })
 
   const [createPostMutation, { data: createPostMutationData, loading: createPostMutationLoading, error: createPostMutationError }] = useCreatePostMutation()
 
@@ -58,20 +47,14 @@ const CreatePost = () => {
     }
   });
 
-  if (sessionStatus === "loading") {
-    return <Loader />
-  }
-
   return (
-    <div className="vh-100 d-flex align-items-center justify-content-center">
-      <div className="card shadow-lg" style={{ width: '24rem' }}>
+      <div className="card shadow-lg">
         <div className="card-body">
           <h5 className="card-title text-center">Create Post</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
-              <InputField
+              <TextareaField
                 title='Post Body'
-                type='text'
                 id='body'
                 name='body'
                 formik={formik}
@@ -85,7 +68,6 @@ const CreatePost = () => {
           </form>
         </div>
       </div>
-    </div>
   )
 }
 

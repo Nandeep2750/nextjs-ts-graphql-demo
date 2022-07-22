@@ -3,11 +3,15 @@ import { setContext } from "@apollo/client/link/context";
 import {
     ApolloClient,
     HttpLink,
+    ApolloLink,
     InMemoryCache,
     NormalizedCacheObject,
+
 } from "@apollo/client";
+import { onError } from '@apollo/link-error'
 import merge from "deepmerge";
-import { getSession } from "next-auth/react";
+import { getSession, signOut, GetSessionParams } from "next-auth/react";
+
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 function createIsomorphLink() {
@@ -15,30 +19,42 @@ function createIsomorphLink() {
         uri: process.env.NEXT_PUBLIC_APOLLO_CLIENT_URI,
     });
 }
-const authLink = setContext(async (_, { headers }) => {
-    const isSSR = typeof window === "undefined";
-    const token = !isSSR && (await getSession())?.token;
+const authLink = (context?: GetSessionParams) => setContext(async (_, { headers }) => {
+    const token = (await getSession(context))?.token;
+
 
     return {
         headers: {
             ...headers,
-            ...(!isSSR && { authorization: token ? `Bearer ${token}` : "" }),
+            authorization: token ? `Bearer ${token}` : "",
         },
     };
 });
 
-function createApolloClient() {
+function createApolloClient(context?: GetSessionParams) {
     return new ApolloClient({
         ssrMode: typeof window === "undefined",
-        link: authLink.concat(createIsomorphLink()),
+        link: ApolloLink.from(
+
+            [onError(({ graphQLErrors, networkError }) => {
+                if (graphQLErrors)
+                    graphQLErrors.forEach(({ extensions }) => {
+                        if (extensions.code === "UNAUTHENTICATED") {
+                            signOut({ callbackUrl: '/' })
+                        }
+                    })
+                if (networkError)
+                    console.log("🚀 ~ file: apollo.ts ~ line 49 ~ [onError ~ networkError", networkError)
+            }), authLink(context).concat(createIsomorphLink())]
+        ),
         cache: new InMemoryCache(),
     });
 }
 
 export function initializeApollo(
-    initialState: NormalizedCacheObject | null = null
+    initialState: NormalizedCacheObject | null = null, context?: GetSessionParams
 ) {
-    const _apolloClient = apolloClient ?? createApolloClient();
+    const _apolloClient = apolloClient ?? createApolloClient(context);
 
     // If your page has Next.js data fetching methods that use Apollo Client, the initial state
     // gets hydrated here

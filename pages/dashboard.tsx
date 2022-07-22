@@ -1,9 +1,12 @@
 import type { NextPage } from 'next'
-import { useSession } from "next-auth/react"
+import { useSession, getSession } from "next-auth/react"
 import Router from "next/router";
-import { useEffect } from 'react';
 import Loader from '../components/common/Loader';
-
+import CreatePost from '../components/post/CreatePost';
+import PostList from '../components/post/PostList';
+import { GetServerSideProps } from 'next'
+import { initializeApollo } from '../graphql/apollo'
+import { CreatePostDocument } from '../graphql/generated'
 const Dashboard: NextPage = () => {
 
     const { data: sessionData, status: sessionStatus } = useSession({
@@ -19,24 +22,14 @@ const Dashboard: NextPage = () => {
     }
 
     return (
-        <>
-            <div className="card m-4">
-                <div className="card-body">
-                    <h3 className="card-title">Posts</h3>
-
-                    <ul className="list-group">
-                        <li className="list-group-item">
-                            <h5>asdasd</h5>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur eius nisi mollitia aut voluptate. Obcaecati est aspernatur mollitia, voluptatum commodi, nam eaque deleniti ut veniam natus delectus itaque, earum aliquam?</p>
-                        </li>
-                        <li className="list-group-item">A second item</li>
-                        <li className="list-group-item">A third item</li>
-                        <li className="list-group-item">A fourth item</li>
-                        <li className="list-group-item">And a fifth one</li>
-                    </ul>
-                </div>
+        <div className='row my-3'>
+            <div className="col-md-4">
+                <CreatePost />
             </div>
-        </>
+            <div className="col-md-8">
+                <PostList />
+            </div>
+        </div>
     )
 }
 

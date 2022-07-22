@@ -13,13 +13,17 @@ export default function AuthLayout({ children }: DashboardLayoutProps) {
 
     return (
         <>
-            {sessionData ? 
+            {sessionData ?
                 <>
                     <Navbar />
-                    {children}
+                    <div className='container-fluid'>
+                        {children}
+                    </div>
                 </>
-                : 
-                children
+                :
+                <div className='container-fluid'>
+                    {children}
+                </div>
             }
         </>
     );

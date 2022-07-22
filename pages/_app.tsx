@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
           <ToastContainer autoClose={3000} />
         </SessionProvider>
       </ApolloProvider>
-      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" />
+      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" ></Script>
       {/* <Script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js" /> */}
     </>
   )
