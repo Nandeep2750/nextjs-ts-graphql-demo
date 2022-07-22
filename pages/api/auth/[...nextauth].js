@@ -54,6 +54,7 @@ export default NextAuth({
         },
         async session({ session, token }) {
             session.user = token.user
+            session.token = token.user.token
             return Promise.resolve(session)
         }
     },
