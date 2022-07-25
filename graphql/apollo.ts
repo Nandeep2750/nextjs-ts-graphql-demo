@@ -22,7 +22,6 @@ function createIsomorphLink() {
 const authLink = (context?: GetSessionParams) => setContext(async (_, { headers }) => {
     const token = (await getSession(context))?.token;
 
-
     return {
         headers: {
             ...headers,
