@@ -15,12 +15,12 @@ Install docker using following link for your OS.
 Using the cmd terminal,
 
 1. Get SonarQube
-```
+```console
 docker pull sonarqube
 ```
 
 2. Run SonarQube
-```
+```console
 docker run --name sonarqube --restart always -p 9000:9000 -d sonarqube
 ```
 
@@ -32,34 +32,34 @@ docker run --name sonarqube --restart always -p 9000:9000 -d sonarqube
 
 ### Steps for Ubuntu
 - Download the SonarQube Docker image from the online repository
-```
+```console
  docker pull sonarqube
 ```
 - List the Docker images installed on your system
-```
+```console
  docker images
 ```
 - Here is the command output:
-```
+```console
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 sonarqube           latest              3287e6831017        3 weeks ago         461MB
 ```
 - Create Docker volumes to store the SonarQube persistent data
-```
+```console
 docker volume create sonarqube-conf 
 docker volume create sonarqube-data
 docker volume create sonarqube-logs
 docker volume create sonarqube-extensions
 ```
 - Verify the persistent data directories.
-```
+```console
 docker volume inspect sonarqube-conf 
 docker volume inspect sonarqube-data
 docker volume inspect sonarqube-logs
 docker volume inspect sonarqube-extensions
 ```
 - Optionally, create symbolic links to an easier access location.
-```
+```console
 mkdir /sonarqube
 ln -s /var/lib/docker/volumes/sonarqube-conf/_data /sonarqube/conf
 ln -s /var/lib/docker/volumes/sonarqube-data/_data /sonarqube/data
@@ -67,38 +67,38 @@ ln -s /var/lib/docker/volumes/sonarqube-logs/_data /sonarqube/logs
 ln -s /var/lib/docker/volumes/sonarqube-extensions/_data /sonarqube/extensions
 ```
 - Start a SonarQube container with persistent data storage.
-```
+```console
 docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 -v sonarqube-conf:/opt/sonarqube/conf -v sonarqube-data:/opt/sonarqube/data -v sonarqube-logs:/opt/sonarqube/logs -v sonarqube-extensions:/opt/sonarqube/extensions sonarqube
 ```
 
 SonarQube - Docker container management
 - Verify the containers status using the following command:
-```
+```console
 docker ps -a
 ```
 
 - Verify the status of a container.
-```
+```console
 docker ps -a -f name=sonarqube
 ```
 
 - To stop a container, use the following command:
-```
+```console
 docker container stop sonarqube
 ```
 
 - To start a container, use the following command:
-```
+```console
 docker container start sonarqube
 ```
 
 - To restart a container, use the following command:
-```
+```console
 docker container restart sonarqube
 ```
 
 - In case of error, use the following command to verify the container logs.
-```
+```console
 docker logs sonarqube
 ```
 ------------------------------------------------
@@ -165,7 +165,7 @@ docker logs sonarqube
     1. Insatll [sonarqube-scanner](https://www.npmjs.com/package/sonarqube-scanner)
     2. Add sonarqube-scanner.js file at the root of project.
     3. Run below commad to execute analysis locally.
-    ```
+    ```console
     node sonarqube-scanner
     ```
     4. It will create .scannerwork folder with .sonar_lock and report-task.txt (In which you can find report of the analysis) files.

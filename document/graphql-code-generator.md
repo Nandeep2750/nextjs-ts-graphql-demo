@@ -51,7 +51,7 @@ Fetching latest versions of selected plugins...
 - `graphql/generated/index.tsx`
 - To use of any Hooks like queries or mutation here is one example...
 
-```
+```js
 import { useLoginMutation } from '../graphql/generated';
 
 const [loginMutation, { data: loginMutationData, loading: loginMutationLoading, error: loginMutationError }] = useLoginMutation();
