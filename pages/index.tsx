@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
@@ -11,10 +11,15 @@ import InputField from '../components/form/InputField';
 import Router from 'next/router';
 import { useEffect } from 'react';
 import Loader from '../components/common/Loader';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 
 const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Home: NextPage = () => {
+
+  const { t } = useTranslation(["common"])
 
   const { data: sessionData, status: sessionStatus } = useSession()
 
@@ -75,7 +80,8 @@ const Home: NextPage = () => {
     <div className="vh-100 d-flex align-items-center justify-content-center">
       <div className="card shadow-lg" style={{ width: '24rem' }}>
         <div className="card-body">
-          <h5 className="card-title text-center">Login</h5>
+          <h5 className="card-title text-center">{t('footer:login')}</h5>
+          <h5 className="card-title text-center">{t("login")}</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
               <InputField
@@ -116,5 +122,18 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+// export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+//   props: {
+//     ...await serverSideTranslations(locale || "en", ['common']),
+//   },
+// })
+
+export const getStaticProps:GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...await serverSideTranslations(locale || "en"),
+  },
+})
+
 
 export default Home
