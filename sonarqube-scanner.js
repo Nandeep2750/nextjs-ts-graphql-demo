@@ -2,14 +2,14 @@ const scanner = require('sonarqube-scanner');
 
 scanner(
     {
-        serverUrl: 'https://16e4-182-70-121-2.in.ngrok.io',
-        token: "sqp_2b1ed6a0793eb286aa6e2c2adfd64afc24816df9",
+        serverUrl: 'https://sonarqube.openxcell.dev',
+        token: "sqp_a4e1c564ea212348fbbf9a5c767468d8993826ce",
         options: {
-            'sonar.projectName': 'test next js',
+            'sonar.projectName': 'nextjs-ts-graphql-demo',
             'sonar.projectDescription': 'Next js GraphQL project',
             'sonar.sources': './',
             'sonar.login': 'admin',
-            'sonar.password': 'Admin@123',
+            'sonar.password': 'admin123',
         }
     },
     () => process.exit()
