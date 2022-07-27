@@ -19,7 +19,7 @@ const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Home: NextPage = () => {
 
-  const { t } = useTranslation(["common"])
+  const { t } = useTranslation(["footer","form_field"])
 
   const { data: sessionData, status: sessionStatus } = useSession()
 
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
   const [loginMutation, { data: loginMutationData, loading: loginMutationLoading, error: loginMutationError }] = useLoginMutation();
 
   const LoginValidationSchema = Yup.object().shape({
-    username: Yup.string().required(),
+    username: Yup.string().required(t("form_field:field_error.required",{field_name: t("form_field:field_name.username")})),
     password: Yup.string().required()
   });
 
@@ -80,7 +80,6 @@ const Home: NextPage = () => {
     <div className="vh-100 d-flex align-items-center justify-content-center">
       <div className="card shadow-lg" style={{ width: '24rem' }}>
         <div className="card-body">
-          <h5 className="card-title text-center">{t('footer:login')}</h5>
           <h5 className="card-title text-center">{t("login")}</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
@@ -122,12 +121,6 @@ const Home: NextPage = () => {
     </div>
   )
 }
-
-// export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-//   props: {
-//     ...await serverSideTranslations(locale || "en", ['common']),
-//   },
-// })
 
 export const getStaticProps:GetStaticProps = async ({ locale }) => ({
   props: {

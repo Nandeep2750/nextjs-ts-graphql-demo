@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master # or the name of your main branch
+      - development # or the name of your main branch
+      - nandeep # or the name of your main branch
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Build
@@ -13,12 +17,14 @@ jobs:
           fetch-depth: 0
       # - uses: sonarsource/sonarqube-scan-action@master
       #   env:
-      #     SONAR_TOKEN: "sqp_2b1ed6a0793eb286aa6e2c2adfd64afc24816df9"
-      #     SONAR_HOST_URL: "https://16e4-182-70-121-2.in.ngrok.io"
+      #     SONAR_TOKEN: sqp_a4e1c564ea212348fbbf9a5c767468d8993826ce
+      #     SONAR_HOST_URL: https://sonarqube.openxcell.dev
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
+      # We do not recommend to use this in a pull request. Prefer using pull request
+      # decoration instead.
       - uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
-          SONAR_TOKEN: "sqp_2b1ed6a0793eb286aa6e2c2adfd64afc24816df9"
-          SONAR_HOST_URL: "https://16e4-182-70-121-2.in.ngrok.io"
+          SONAR_TOKEN: sqp_a4e1c564ea212348fbbf9a5c767468d8993826ce
+          SONAR_HOST_URL: https://sonarqube.openxcell.dev

@@ -1,0 +1,10 @@
+{
+    "field_name":{
+        "username": "User Name es",
+        "password": "Password es"
+    },
+    "field_error":{
+        "string": "{{field_name}} must be a string es",
+        "required": "{{field_name}} is a required field es"
+    }
+}
