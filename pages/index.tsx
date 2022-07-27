@@ -59,6 +59,7 @@ const Home: NextPage = () => {
           // Router.push("/dashboard");
         },
         onError(error) {
+          console.log("🚀 ~ file: index.tsx ~ line 62 ~ onError ~ error", error)
           actions.setSubmitting(false)
           actions.resetForm()
           toast.error(error.message);
