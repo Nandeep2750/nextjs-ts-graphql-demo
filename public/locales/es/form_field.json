@@ -1,7 +1,9 @@
 {
     "field_name":{
-        "username": "User Name es",
-        "password": "Password es"
+        "auth":{
+            "username": "User Name es",
+            "password": "Password es"
+        }
     },
     "field_error":{
         "string": "{{field_name}} must be a string es",

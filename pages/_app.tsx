@@ -9,8 +9,6 @@ import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next';
 
 /* Import css & scss */
-import 'bootstrap/dist/css/bootstrap.css'
-
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/styles/globals.css'
 import '../assets/styles/style.css'
@@ -19,6 +17,8 @@ import '../assets/styles/style.css'
 // import NextApolloProvider from '../graphql/NextApolloProvider'
 import AuthLayout from '../components/layout/AuthLayout';
 import { useApollo } from './../graphql/apollo';
+import Head from 'next/head'
+
 
 function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
 
@@ -26,6 +26,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
 
   return (
     <>
+      <Head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossOrigin="anonymous" />
+      </Head>
+
       <ApolloProvider client={apolloClient}>
         <SessionProvider session={session}>
           <AuthLayout>
@@ -34,7 +38,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
           <ToastContainer autoClose={3000} />
         </SessionProvider>
       </ApolloProvider>
-      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" ></Script>
+
+      <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossOrigin="anonymous"></Script>
       <Script id="chatbot" dangerouslySetInnerHTML={{
         __html: `
             window.__lc = window.__lc || { };
@@ -46,10 +51,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
         `,
       }}>
       </Script>
-      <noscript><a href="https://www.livechat.com/chat-with/14351655/" rel="nofollow">Chat with us</a>
-        , powered by
+      <noscript><a href="https://www.livechat.com/chat-with/14351655/" rel="nofollow">Chat with us</a>, powered by
         <a href="https://www.livechat.com/?welcome" rel="noopener nofollow noreferrer" target="_blank">LiveChat</a>
       </noscript>
+      
       {/* <Script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js" /> */}
     </>
   )
