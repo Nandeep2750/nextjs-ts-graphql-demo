@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NextAuth({
     // Configure one or more authentication providers
+    secret: process.env.NEXT_PUBLIC_SECRET,
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. "Sign in with...")
