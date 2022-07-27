@@ -1,3 +1,4 @@
 {
-    "login":"Login Common"
+    "login":"Login Common",
+    "validateField":"{{attribute}} is a required field"
 }
