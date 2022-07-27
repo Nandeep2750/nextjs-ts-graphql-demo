@@ -19,7 +19,7 @@ const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Home: NextPage = () => {
 
-  const { t } = useTranslation(["footer","form_field"])
+  const { t } = useTranslation(["auth","form_field"])
 
   const { data: sessionData, status: sessionStatus } = useSession()
 
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
     <div className="vh-100 d-flex align-items-center justify-content-center">
       <div className="card shadow-lg" style={{ width: '24rem' }}>
         <div className="card-body">
-          <h5 className="card-title text-center">{t("login")}</h5>
+          <h5 className="card-title text-center">{t("auth:login_title")}</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
               <InputField
@@ -106,15 +106,15 @@ const Home: NextPage = () => {
               />
             </div>
             <button type="submit" className="btn btn-primary" disabled={formik.isSubmitting}>
-              Login
+              {t("auth:login_button")}
               {formik.isSubmitting && <div className="spinner-border text-light spinner-border-sm ms-2" role="status"></div>}
             </button>
             {process.env.NODE_ENV === DEVELOPMENT_ENV &&
-              <button type="button" className="btn btn-link" onClick={onFill}>Fill form</button>
+              <button type="button" className="btn btn-link" onClick={onFill}>{t("auth:fill_form")}</button>
             }
             <div className='mt-2'>
               <span>Don&apos;t have account?</span>{" "}
-              <Link href={"/register"}>Sign Up</Link>
+              <Link href={"/register"}>{t("auth:signup_title")}</Link>
             </div>
           </form>
         </div>
