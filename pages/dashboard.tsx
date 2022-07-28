@@ -1,12 +1,11 @@
-import type { NextPage } from 'next'
-import { useSession, getSession } from "next-auth/react"
+import type { GetServerSideProps, NextPage } from 'next'
+import { useSession } from "next-auth/react"
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Router from "next/router";
 import Loader from '../components/common/Loader';
 import CreatePost from '../components/post/CreatePost';
 import PostList from '../components/post/PostList';
-import { GetServerSideProps } from 'next'
-import { initializeApollo } from '../graphql/apollo'
-import { CreatePostDocument } from '../graphql/generated'
+
 const Dashboard: NextPage = () => {
 
     const { data: sessionData, status: sessionStatus } = useSession({
@@ -33,4 +32,10 @@ const Dashboard: NextPage = () => {
     )
 }
 
-export default Dashboard
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...await serverSideTranslations(locale || "en"),
+    },
+})
+
+export default Dashboard;

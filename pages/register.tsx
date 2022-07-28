@@ -16,7 +16,7 @@ const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Register: NextPage = () => {
   const router = useRouter();
-  const { t } = useTranslation(["auth", "form_field"])
+  const { t } = useTranslation(["auth", "form_field", "notification_messages"])
   const [registerMutation, { data: registerMutationData, loading: registerMutationLoading, error: registerMutationError }] = useRegisterMutation();
 
   const RegistrationValidationSchema = Yup.object().shape({
@@ -55,7 +55,7 @@ const Register: NextPage = () => {
         onCompleted() {
           actions.setSubmitting(false)
           actions.resetForm()
-          toast.success("Congratulations, your account has been successfully created.");
+          toast.success(t("notification_messages:register.success.account_successfully_created"));
           router.push('/', '/', { locale: router.locale })
         },
         onError(error) {
@@ -67,11 +67,11 @@ const Register: NextPage = () => {
     }
   });
 
-  const onFill = () => {
-    formik.setFieldValue('username', LOGIN_DATA.username, false)
-    formik.setFieldValue('email', LOGIN_DATA.email, false)
-    formik.setFieldValue('password', LOGIN_DATA.password, false)
-    formik.setFieldValue('confirmPassword', LOGIN_DATA.password, false)
+  const onFill = async () => {
+    await formik.setFieldValue('username', LOGIN_DATA.username, true)
+    await formik.setFieldValue('email', LOGIN_DATA.email, true)
+    await formik.setFieldValue('password', LOGIN_DATA.password, true)
+    await formik.setFieldValue('confirmPassword', LOGIN_DATA.password, true)
   }
 
   return (

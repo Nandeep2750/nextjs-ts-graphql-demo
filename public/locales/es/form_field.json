@@ -5,6 +5,9 @@
             "email": "Correo electrónico",
             "password": "Clave",
             "confirm_password": "Confirmar contraseña"
+        },
+        "post": {
+            "post_body": "Publicar cuerpo"
         }
     },
     "field_error": {
