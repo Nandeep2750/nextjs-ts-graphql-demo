@@ -1,25 +1,27 @@
 import type { GetStaticProps, NextPage } from 'next'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Link from 'next/link';
+import { useEffect } from 'react';
 import { toast } from "react-toastify";
 import { signIn, useSession } from "next-auth/react"
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { useLoginMutation } from '../graphql/generated';
 import { CONSTANTS } from '../config/constants';
 import InputField from '../components/form/InputField';
-import Router from 'next/router';
-import { useEffect } from 'react';
+import Router, { useRouter } from 'next/router';
 import Loader from '../components/common/Loader';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import CustomLink from '../components/common/CustomLink';
 
 
 const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Home: NextPage = () => {
 
-  const { t } = useTranslation(["auth","form_field"])
+  let router = useRouter();
+
+  const { t } = useTranslation(["auth", "form_field"])
 
   const { data: sessionData, status: sessionStatus } = useSession()
 
@@ -32,8 +34,12 @@ const Home: NextPage = () => {
   const [loginMutation, { data: loginMutationData, loading: loginMutationLoading, error: loginMutationError }] = useLoginMutation();
 
   const LoginValidationSchema = Yup.object().shape({
-    username: Yup.string().required(t("form_field:field_error.required",{field_name: t("form_field:field_name.username")})),
-    password: Yup.string().required()
+    username: Yup
+      .string()
+      .required(t("form_field:field_error.required", { field_name: t("form_field:field_name.user.username") })),
+    password: Yup
+      .string()
+      .required(t("form_field:field_error.required", { field_name: t("form_field:field_name.user.password") }))
   });
 
   const formik = useFormik({
@@ -51,7 +57,7 @@ const Home: NextPage = () => {
         onCompleted(data) {
           signIn("credentials", {
             // redirect: false, 
-            callbackUrl: '/dashboard', 
+            callbackUrl: (`/${router.locale}/dashboard`),
             ...data.login
           })
           actions.setSubmitting(false)
@@ -59,7 +65,6 @@ const Home: NextPage = () => {
           // Router.push("/dashboard");
         },
         onError(error) {
-          console.log("🚀 ~ file: index.tsx ~ line 62 ~ onError ~ error", error)
           actions.setSubmitting(false)
           actions.resetForm()
           toast.error(error.message);
@@ -85,7 +90,7 @@ const Home: NextPage = () => {
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
               <InputField
-                title='User Name'
+                title={t("form_field:field_name.user.username")}
                 type='text'
                 id='username'
                 name='username'
@@ -98,7 +103,7 @@ const Home: NextPage = () => {
             </div>
             <div className="mb-3">
               <InputField
-                title='Password'
+                title={t("form_field:field_name.user.password")}
                 type='password'
                 id='password'
                 name='password'
@@ -113,8 +118,8 @@ const Home: NextPage = () => {
               <button type="button" className="btn btn-link" onClick={onFill}>{t("auth:fill_form")}</button>
             }
             <div className='mt-2'>
-              <span>Don&apos;t have account?</span>{" "}
-              <Link href={"/register"}>{t("auth:signup_title")}</Link>
+              <span>{t("auth:dont_have_account")}</span>{" "}
+              <CustomLink href={"/register"}>{t("auth:signup_title")}</CustomLink>
             </div>
           </form>
         </div>
@@ -123,7 +128,7 @@ const Home: NextPage = () => {
   )
 }
 
-export const getStaticProps:GetStaticProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     ...await serverSideTranslations(locale || "en"),
   },

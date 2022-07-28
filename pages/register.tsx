@@ -1,25 +1,39 @@
-import type { NextPage } from 'next'
+import type { NextPage, GetStaticProps } from 'next'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Link from 'next/link';
-import Router from "next/router";
+import { useRouter } from "next/router";
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { toast } from 'react-toastify';
 
 import InputField from '../components/form/InputField';
 import { useRegisterMutation } from '../graphql/generated';
-import { toast } from 'react-toastify';
 import { CONSTANTS } from '../config/constants';
+import CustomLink from '../components/common/CustomLink';
 
 const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Register: NextPage = () => {
-
+  const router = useRouter();
+  const { t } = useTranslation(["auth", "form_field"])
   const [registerMutation, { data: registerMutationData, loading: registerMutationLoading, error: registerMutationError }] = useRegisterMutation();
 
   const RegistrationValidationSchema = Yup.object().shape({
-    username: Yup.string().required(),
-    email: Yup.string().required().email(),
-    password: Yup.string().required(),
-    confirmPassword : Yup.string().required().oneOf([Yup.ref('password'), null], 'Passwords must match.')
+    username: Yup
+      .string()
+      .required(t("form_field:field_error.required", { field_name: t("form_field:field_name.user.username") })),
+    email: Yup
+      .string()
+      .required(t("form_field:field_error.required", { field_name: t("form_field:field_name.user.email") }))
+      .email(t("form_field:field_error.email", { field_name: t("form_field:field_name.user.email") })),
+    password: Yup
+      .string()
+      .required(t("form_field:field_error.required", { field_name: t("form_field:field_name.user.password") })),
+    confirmPassword: Yup
+      .string()
+      .required(t("form_field:field_error.required", { field_name: t("form_field:field_name.user.confirm_password") }))
+      .oneOf([Yup.ref('password'), null], t("form_field:field_error.confirm_password"))
   });
 
   const formik = useFormik({
@@ -34,15 +48,15 @@ const Register: NextPage = () => {
       actions.setSubmitting(true)
       registerMutation({
         variables: {
-          registerInput:{
+          registerInput: {
             ...values
           }
         },
-        onCompleted(data) {
+        onCompleted() {
           actions.setSubmitting(false)
           actions.resetForm()
           toast.success("Congratulations, your account has been successfully created.");
-          Router.push("/");
+          router.push('/', '/', { locale: router.locale })
         },
         onError(error) {
           actions.setSubmitting(false)
@@ -64,11 +78,11 @@ const Register: NextPage = () => {
     <div className="vh-100 d-flex align-items-center justify-content-center">
       <div className="card shadow-lg" style={{ width: '24rem' }}>
         <div className="card-body">
-          <h5 className="card-title text-center">Sign Up</h5>
+          <h5 className="card-title text-center">{t("auth:signup_title")}</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-3">
               <InputField
-                title='User Name'
+                title={t("form_field:field_name.user.username")}
                 type='text'
                 id='username'
                 name='username'
@@ -77,7 +91,7 @@ const Register: NextPage = () => {
             </div>
             <div className="mb-3">
               <InputField
-                title='Email'
+                title={t("form_field:field_name.user.email")}
                 type='email'
                 id='email'
                 name='email'
@@ -86,7 +100,7 @@ const Register: NextPage = () => {
             </div>
             <div className="mb-3">
               <InputField
-                title='Password'
+                title={t("form_field:field_name.user.password")}
                 type='password'
                 id='password'
                 name='password'
@@ -95,7 +109,7 @@ const Register: NextPage = () => {
             </div>
             <div className="mb-3">
               <InputField
-                title='Confirm Password'
+                title={t("form_field:field_name.user.confirm_password")}
                 type='password'
                 id='confirmPassword'
                 name='confirmPassword'
@@ -110,8 +124,8 @@ const Register: NextPage = () => {
               <button type="button" className="btn btn-link" onClick={onFill}>Fill form</button>
             }
             <div className='mt-2'>
-              <span>Already have an account?</span>{" "}
-              <Link href={"/"}>Login</Link>
+              <span>{t("auth:already_have_account")}</span>{" "}
+              <CustomLink href={"/"}>{t("auth:login_title")}</CustomLink>
             </div>
           </form>
         </div>
@@ -119,5 +133,11 @@ const Register: NextPage = () => {
     </div>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...await serverSideTranslations(locale || "en"),
+  },
+})
 
 export default Register
