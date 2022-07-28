@@ -5,6 +5,9 @@
             "email": "Email",
             "password": "Password",
             "confirm_password": "Confirm Password"
+        },
+        "post": {
+            "post_body": "Post Body"
         }
     },
     "field_error": {

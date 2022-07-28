@@ -1,0 +1,8 @@
+{
+    "register": {
+        "success": {
+            "account_successfully_created": "Congratulations, your account has been successfully created"
+        },
+        "error": {}
+    }
+}

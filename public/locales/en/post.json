@@ -1,0 +1,9 @@
+{
+    "create_post": {
+        "title": "Create Post",
+        "button": "Create Post"
+    },
+    "list_post": {
+        "title": "Posts"
+    }
+}

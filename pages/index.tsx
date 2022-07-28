@@ -73,9 +73,9 @@ const Home: NextPage = () => {
     }
   });
 
-  const onFill = () => {
-    formik.setFieldValue('username', LOGIN_DATA.username, false)
-    formik.setFieldValue('password', LOGIN_DATA.password, false)
+  const onFill = async () => {
+    await formik.setFieldValue('username', LOGIN_DATA.username, true)
+    await formik.setFieldValue('password', LOGIN_DATA.password, true)
   }
 
   if (sessionStatus === "loading") {
