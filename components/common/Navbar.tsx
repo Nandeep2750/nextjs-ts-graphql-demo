@@ -1,6 +1,5 @@
-import { signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import * as React from 'react';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
 const Navbar: React.FunctionComponent = () => {
@@ -11,7 +10,7 @@ const Navbar: React.FunctionComponent = () => {
         router.push(router.asPath, router.asPath, { locale: event.target.value })
     }
 
-    const { data: sessionData, status: sessionStatus } = useSession()
+    const { data: sessionData } = useSession()
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
             <a className="navbar-brand" href="#">Nextjs ts graphql demo</a>
