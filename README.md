@@ -18,17 +18,18 @@ yarn dev
 - Implement Graphql Code Generator to generate Hooks from graphql queries.
 - Implement Toastify for Toast message.
 - Use Generated Hooks for Graphql API calls.
-- Create reusable component and use interface and types to manage props generics
+- Create reusable component and use interface and types to manage props generics.
 - Set Custom 404 page.
 - Implement next-auth.
 - Authentication for routes.
 - Sonarqube Implementation with Docker.
 - Implement sonarqube-scanner.
+- Multilanguage Implementation.
+- Chatbot (One to One Chat & Predefined Question & Answer)
 
 ## ToDo
-- Multilanguage Implementation.
 - Redux Implementation.
-- Lazy Loading Images
+- Lazy Loading Images.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -41,7 +42,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
-
+`
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
