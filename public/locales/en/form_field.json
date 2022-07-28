@@ -1,10 +1,16 @@
 {
-    "field_name":{
-        "username": "User Name",
-        "password": "Password"
+    "field_name": {
+        "user": {
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "confirm_password": "Confirm Password"
+        }
     },
-    "field_error":{
+    "field_error": {
         "string": "{{field_name}} must be a string",
-        "required": "{{field_name}} is a required field"
+        "email": "{{field_name}} must be a valid email",
+        "required": "{{field_name}} is a required field",
+        "confirm_password": "Passwords must match."
     }
 }

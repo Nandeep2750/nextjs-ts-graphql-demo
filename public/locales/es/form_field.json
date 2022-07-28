@@ -1,12 +1,16 @@
 {
-    "field_name":{
-        "auth":{
-            "username": "User Name es",
-            "password": "Password es"
+    "field_name": {
+        "user": {
+            "username": "Nombre de usuario",
+            "email": "Correo electrónico",
+            "password": "Clave",
+            "confirm_password": "Confirmar contraseña"
         }
     },
-    "field_error":{
-        "string": "{{field_name}} must be a string es",
-        "required": "{{field_name}} is a required field es"
+    "field_error": {
+        "string": "{{field_name}} debe ser una cadena",
+        "email": "{{field_name}} debe ser un correo electrónico válido",
+        "required": "{{field_name}} es un campo obligatorio",
+        "confirm_password": "Las contraseñas deben coincidir"
     }
 }

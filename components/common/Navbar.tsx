@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 const Navbar: React.FunctionComponent = () => {
 
-    let router = useRouter();
+    const router = useRouter();
 
     const onLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         router.push(router.asPath, router.asPath, { locale: event.target.value })
@@ -23,7 +23,7 @@ const Navbar: React.FunctionComponent = () => {
                 <ul className="navbar-nav mr-auto">
                     {sessionData &&
                         <li className="nav-item mx-2 my-2">
-                            <button type="button" className="btn btn-outline-light" onClick={() => signOut({ callbackUrl: '/' })}>Sign out</button>
+                            <button type="button" className="btn btn-outline-light" onClick={() => signOut({ callbackUrl: `/${router.locale}` })}>Sign out</button>
                         </li>
                     }
                     <li className="nav-item dropdown mx-2 my-2">
