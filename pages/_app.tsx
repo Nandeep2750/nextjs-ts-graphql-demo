@@ -5,7 +5,6 @@ import type { AppProps } from 'next/app'
 import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react"
 import { ApolloProvider } from "@apollo/client"
-import Script from 'next/script'
 import { appWithTranslation } from 'next-i18next';
 
 /* Import css & scss */
@@ -17,7 +16,6 @@ import '../assets/styles/style.css'
 // import NextApolloProvider from '../graphql/NextApolloProvider'
 import AuthLayout from '../components/layout/AuthLayout';
 import { useApollo } from './../graphql/apollo';
-import Head from 'next/head'
 
 
 function MyApp({ Component, pageProps: { session, ...pageProps }, }: AppProps) {
