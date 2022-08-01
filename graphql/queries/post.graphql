@@ -42,3 +42,24 @@ mutation createPost($body: String!) {
   }
 }
 
+mutation likePost($postId:ID!){
+  likePost(postId:$postId){
+    id
+    body
+    createdAt
+    username
+    comments{
+      id
+      createdAt
+      username
+      body
+    }
+    likes{
+      id
+      createdAt
+      username
+    }
+    likeCount
+    commentCount
+  }
+}
