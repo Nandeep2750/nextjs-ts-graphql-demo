@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import { useSession } from "next-auth/react"
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Router from "next/router";
@@ -32,10 +32,13 @@ const Dashboard: NextPage = () => {
     )
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-    props: {
-        ...await serverSideTranslations(locale || "en"),
-    },
-})
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+    console.log("🚀 ~ file: dashboard.tsx ~ line 36 ~ constgetServerSideProps:GetServerSideProps= ~ locale", locale)
+    return {
+        props: {
+            ...await serverSideTranslations(locale || "en"),
+        },
+    }
+}
 
 export default Dashboard;
