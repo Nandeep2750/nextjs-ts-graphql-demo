@@ -1,4 +1,4 @@
 {
-    "login":"Login Common",
-    "validateField":"{{attribute}} is a required field"
+    "app_title":"Nextjs ts graphql demo",
+    "sign_out": "Sign out"
 }

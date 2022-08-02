@@ -20,6 +20,28 @@ query getPosts {
   }
 }
 
+query getPost($postId: ID!) {
+  getPost(postId : $postId) {
+    id
+    body
+    createdAt
+    username
+    comments{
+      id
+      createdAt 
+      username
+      body 
+    }
+    likes{
+      id
+      createdAt
+      username
+    }
+    likeCount
+    commentCount
+  }
+}
+
 mutation createPost($body: String!) {
   createPost(body: $body) {
     id
@@ -60,6 +82,19 @@ mutation likePost($postId:ID!){
       username
     }
     likeCount
+    commentCount
+  }
+}
+
+mutation createComment($postId: String!, $body: String!) {
+  createComment(postId: $postId, body: $body) {
+    id
+    comments {
+      id
+      body
+      createdAt
+      username
+    }
     commentCount
   }
 }
