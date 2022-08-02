@@ -5,5 +5,9 @@
     },
     "list_post": {
         "title": "Publicaciones"
+    },
+    "post_detail":{
+        "comment_title": "Comentarios",
+        "add_comment": "Agregar comentario"
     }
 }

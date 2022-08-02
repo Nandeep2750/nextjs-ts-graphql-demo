@@ -1,4 +1,4 @@
 {
-    "login":"Acceso Common",
-    "validateField": "{{attribute}} is a required field (Spanish)"
+    "app_title":"Demostración de nextjs ts graphql",
+    "sign_out": "Desconectar"
 }

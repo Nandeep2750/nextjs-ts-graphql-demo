@@ -7,7 +7,8 @@
             "confirm_password": "Confirmar contraseña"
         },
         "post": {
-            "post_body": "Publicar cuerpo"
+            "post_body": "Publicar cuerpo",
+            "comment_body": "Cuerpo del comentario"
         }
     },
     "field_error": {
