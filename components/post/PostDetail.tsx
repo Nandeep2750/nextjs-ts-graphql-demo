@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { useTranslation } from 'next-i18next';
 
 const PostDetail: React.FunctionComponent<GetPostQuery["getPost"]> = (props) => {
-    const { t } = useTranslation(["post", "form_field"])
+    const { t } = useTranslation()
 
     const CreateCommentValidationSchema = Yup.object().shape({
         body: Yup.string().required(t("form_field:field_error.required", { field_name: t("form_field:field_name.post.comment_body") }))
