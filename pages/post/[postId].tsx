@@ -43,7 +43,6 @@ const PostDetailPage: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    console.log("🚀 ~ file: [postId].tsx ~ line 47 ~ constgetServerSideProps:GetServerSideProps= ~ context", context)
     let locale = context.locale
     let {postId} = context.query
     const apolloClient = initializeApollo(null,context);
@@ -54,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
         props: {
             initialApolloState:apolloClient.cache.extract(),
-            ...await serverSideTranslations(locale || "en"),
+            ...await serverSideTranslations(locale || "en",["post", "form_field","common"]),
         },
     }
 }

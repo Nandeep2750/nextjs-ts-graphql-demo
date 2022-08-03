@@ -9,7 +9,7 @@ import TextareaField from '../form/TextareaField';
 
 const CreatePost: React.FunctionComponent = () => {
 
-  const { t } = useTranslation(["post", "form_field"])
+  const { t } = useTranslation()
 
   const [createPostMutation, { data: createPostMutationData, loading: createPostMutationLoading, error: createPostMutationError }] = useCreatePostMutation()
 

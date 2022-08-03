@@ -7,7 +7,7 @@ import PostLike from './PostLike';
 import Link from 'next/link';
 
 const PostList: React.FunctionComponent = () => {
-    const { t } = useTranslation(["auth", "form_field"])
+    const { t } = useTranslation()
     const { data: sessionData } = useSession()
 
     const { data: useGetPostsData, loading: useGetPostsLoading, error: useGetPostsError } = useGetPostsQuery();

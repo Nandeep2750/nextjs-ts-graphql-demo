@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 
   let router = useRouter();
 
-  const { t } = useTranslation(["auth", "form_field"])
+  const { t } = useTranslation()
 
   const { data: sessionData, status: sessionStatus } = useSession()
 
@@ -130,7 +130,7 @@ const Home: NextPage = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale || "en"),
+    ...await serverSideTranslations(locale || "en",["auth", "form_field","common"]),
   },
 })
 

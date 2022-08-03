@@ -33,10 +33,12 @@ const Dashboard: NextPage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-    console.log("🚀 ~ file: dashboard.tsx ~ line 36 ~ constgetServerSideProps:GetServerSideProps= ~ locale", locale)
+    const translations = await serverSideTranslations(locale || "en",["post", "form_field","common"])
+    console.log("🚀 ~ file: dashboard.tsx ~ line 38 ~ constgetServerSideProps:GetServerSideProps= ~ translations", JSON.stringify(translations))
+
     return {
         props: {
-            ...await serverSideTranslations(locale || "en"),
+        ...translations
         },
     }
 }
