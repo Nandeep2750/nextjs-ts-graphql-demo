@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import { useSession } from "next-auth/react"
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Router from "next/router";
@@ -32,14 +32,15 @@ const Dashboard: NextPage = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const translations = await serverSideTranslations(locale || "en",["post", "form_field","common"])
     console.log("🚀 ~ file: dashboard.tsx ~ line 38 ~ constgetServerSideProps:GetServerSideProps= ~ translations", JSON.stringify(translations))
 
     return {
         props: {
-        ...translations
+        ...translations,
         },
+        revalidate:10
     }
 }
 
