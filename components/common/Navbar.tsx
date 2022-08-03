@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 
 const Navbar: React.FunctionComponent = () => {
 
-    const { t } = useTranslation(["common"])
+    const { t } = useTranslation()
 
     const router = useRouter();
 

@@ -16,7 +16,7 @@ const { LOGIN_DATA, DEVELOPMENT_ENV } = CONSTANTS
 
 const Register: NextPage = () => {
   const router = useRouter();
-  const { t } = useTranslation(["auth", "form_field", "notification_messages"])
+  const { t } = useTranslation()
   const [registerMutation, { data: registerMutationData, loading: registerMutationLoading, error: registerMutationError }] = useRegisterMutation();
 
   const RegistrationValidationSchema = Yup.object().shape({
@@ -136,7 +136,7 @@ const Register: NextPage = () => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale || "en"),
+    ...await serverSideTranslations(locale || "en",["auth", "form_field", "notification_messages","common"]),
   },
 })
 
